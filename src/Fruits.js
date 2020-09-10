@@ -3,7 +3,7 @@ import Heading from './Header';
 import Loader from './Loader';
 import UnImg from './Imageunsplash'
 import axios from 'axios'; 
-
+import Fruty from './Fruits'
 import styled from 'styled-components';
 
 import { createGlobalStyle } from 'styled-components';
@@ -11,7 +11,7 @@ import { createGlobalStyle } from 'styled-components';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import {BrowserRouter,Route,Link,Switch} from 'react-router-dom'
+
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -35,16 +35,16 @@ grid-auto-rows:300px;
 `;
 
 
-function App() {
+function Fruits() {
 const [images,setImages] =useState([])
 
 useEffect(()=>{
   fetchImages();
 },[])
 
-const fetchImages = () => {
-  const apiRoot="https://api.unsplash.com";
-  const accessKey=process.env.REACT_APP_ACCESSKEY;
+let fetchImages = () => {
+  let apiRoot="https://api.unsplash.com";
+  let accessKey=process.env.REACT_APP_ACCESSKEY;
 
   axios 
         .get(`${apiRoot}/photos/random?client_id=${accessKey}&count=10 `)
@@ -53,11 +53,16 @@ const fetchImages = () => {
 
   return (
     <div> 
+
+
       <Heading />
       <GlobalStyle />
 
+
+
     <InfiniteScroll
       dataLength={images.length}
+      next={fetchImages}
       hasMore={true}
       loader={<Loader />}
     >
@@ -65,11 +70,11 @@ const fetchImages = () => {
       {images.map(image=>(
         <UnImg url={image.urls.thumb} key={image.id}/>
       ))}
-    </WrapperImage>  
-    </InfiniteScroll>      
+    </WrapperImage>
+    </InfiniteScroll>
 
     </div>
   );
 }
 
-export default App;
+export default Fruits;
