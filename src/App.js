@@ -58,6 +58,7 @@ const fetchImages = () => {
 
     <InfiniteScroll
       dataLength={images.length}
+      next={fetchImages}
       hasMore={true}
       loader={<Loader />}
     >
